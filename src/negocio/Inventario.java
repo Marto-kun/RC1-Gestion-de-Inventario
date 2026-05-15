@@ -7,6 +7,6 @@ import java.util.List;
 
 public class Inventario {
 
-    List<Producto> inventario = new ArrayList<>();
+    List<Producto> inventario = new ArrayList<>();   //Inicializacion de la lista de productos de la ferreteria
 
 }

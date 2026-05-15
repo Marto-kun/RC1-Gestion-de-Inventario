@@ -2,6 +2,7 @@ package modelo;
 
 public abstract class Producto {
 
+    //Atributos privados para heredar a nuevas clases
     private String id;
     private String marca;
     private String nombre;
@@ -9,10 +10,13 @@ public abstract class Producto {
     private double precioUnitario;
     private double valorInventario;
 
+    //Constructor vacio
     public Producto() {
     }
 
-    public Producto(String id, String marca, String nombre, int stock, double precioUnitario, double valorInventario) {
+    //Constructor con argumentos
+    public Producto(String id, String marca, String nombre, int stock,
+                    double precioUnitario, double valorInventario) {
         this.id = id;
         this.marca = marca;
         this.nombre = nombre;
@@ -21,6 +25,7 @@ public abstract class Producto {
         this.valorInventario = valorInventario;
     }
 
+    //Metodo abstracto para diferentes productos del inventario
     public abstract double calcularValorInventario();
 
 

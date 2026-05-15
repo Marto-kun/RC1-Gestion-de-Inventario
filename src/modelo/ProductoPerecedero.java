@@ -5,16 +5,31 @@ import java.time.temporal.ChronoUnit;
 
 public class ProductoPerecedero extends Producto {
 
+    //Atributo tipo fecha
     private LocalDate fechaVencimiento;
 
 
+    //Constructor con argumentos para producto perecedero
+    public ProductoPerecedero(String id, String marca, String nombre, int stock,
+                              double precioUnitario, double valorInventario, LocalDate fechaVencimiento) {
+        super(id, marca, nombre, stock, precioUnitario, valorInventario);
+        this.fechaVencimiento = fechaVencimiento;
+    }
+
+    /**
+     * Metodo para calcular el valor en inventario de un producto específico
+     *
+     * @return Valor del inventario
+     */
     @Override
     public double calcularValorInventario() {
 
-        LocalDate hoy = LocalDate.now();
-        double diasParaVencer = ChronoUnit.DAYS.between(hoy, this.fechaVencimiento);
+        LocalDate hoy = LocalDate.now();   //Fecha actual
+        double diasParaVencer = ChronoUnit.DAYS.between(hoy, this.fechaVencimiento);   //Calculo de dias entre la fecha actual
+        // y la fecha de vencimiento establecida del producto
         double inventario = getStock() * getPrecioUnitario();
 
+        //Restricciones:
         if (diasParaVencer <= 0) {
             return 0.0;  //El valor del producto es 0 si la fecha de vencimiento ya pasó
         } else if (diasParaVencer <= 30) {
