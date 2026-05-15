@@ -16,11 +16,7 @@ public class ProductoPerecedero extends Producto {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    /**
-     * Metodo para calcular el valor en inventario de un producto específico
-     *
-     * @return Valor del inventario
-     */
+
     @Override
     public double calcularValorInventario() {
 

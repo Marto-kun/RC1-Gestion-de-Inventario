@@ -26,6 +26,11 @@ public abstract class Producto {
     }
 
     //Metodo abstracto para diferentes productos del inventario
+    /**
+     * Metodo para calcular el valor en inventario de un producto específico
+     *
+     * @return Valor del inventario
+     */
     public abstract double calcularValorInventario();
 
 
