@@ -89,14 +89,42 @@ public class Sistema {
         } while (opcion != 4);
     }
 
+    //Metodo para verificar si el ID ya existe
+    public boolean idExiste(String id) {
+
+        for (Producto producto : inventario.getListaProductos()) {
+
+            if (producto.getId().equalsIgnoreCase(id)) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     //Metodo para registrar productos perecederos
     public void registrarPerecedero() {
 
         System.out.println("\n--- PRODUCTO PERECEDERO ---");
 
-        //Ingreso de datos
-        System.out.print("ID: ");
-        String id = sc.nextLine();
+        //Ingreso y validacion de ID
+        String id;
+
+        while (true) {
+
+            System.out.print("ID: ");
+            id = sc.nextLine();
+
+            if (idExiste(id)) {
+
+                System.out.println("El ID ya existe");
+
+            } else {
+
+                break;
+            }
+        }
 
         System.out.print("Marca: ");
         String marca = sc.nextLine();
@@ -128,7 +156,7 @@ public class Sistema {
 
             } else {
 
-                System.out.println("Ingrese un numero valido");
+                System.out.println("No se permiten letras, ingrese un numero");
                 sc.next();
             }
         }
@@ -157,7 +185,7 @@ public class Sistema {
 
             } else {
 
-                System.out.println("Ingrese un numero valido");
+                System.out.println("No se permiten letras, ingrese un numero");
                 sc.next();
             }
         }
@@ -172,7 +200,7 @@ public class Sistema {
 
             while (!sc.hasNextInt()) {
 
-                System.out.println("Ingrese un anio valido");
+                System.out.println("No se permiten letras, ingrese un anio valido");
                 sc.next();
             }
 
@@ -189,7 +217,7 @@ public class Sistema {
 
             while (!sc.hasNextInt()) {
 
-                System.out.println("Ingrese un mes valido");
+                System.out.println("No se permiten letras, ingrese un mes valido");
                 sc.next();
             }
 
@@ -199,12 +227,13 @@ public class Sistema {
 
             while (!sc.hasNextInt()) {
 
-                System.out.println("Ingrese un dia valido");
+                System.out.println("No se permiten letras, ingrese un dia valido");
                 sc.next();
             }
 
             int dia = sc.nextInt();
 
+            //Verificacion de fecha
             try {
 
                 //Creacion de fecha
@@ -250,9 +279,23 @@ public class Sistema {
 
         System.out.println("\n--- PRODUCTO NO PERECEDERO ---");
 
-        //Ingreso de datos
-        System.out.print("ID: ");
-        String id = sc.nextLine();
+        //Ingreso y validacion de ID
+        String id;
+
+        while (true) {
+
+            System.out.print("ID: ");
+            id = sc.nextLine();
+
+            if (idExiste(id)) {
+
+                System.out.println("El ID ya existe");
+
+            } else {
+
+                break;
+            }
+        }
 
         System.out.print("Marca: ");
         String marca = sc.nextLine();
@@ -283,7 +326,7 @@ public class Sistema {
 
             } else {
 
-                System.out.println("Ingrese un numero valido");
+                System.out.println("No se permiten letras, ingrese un numero");
                 sc.next();
             }
         }
@@ -311,7 +354,7 @@ public class Sistema {
 
             } else {
 
-                System.out.println("Ingrese un numero valido");
+                System.out.println("No se permiten letras, ingrese un numero");
                 sc.next();
             }
         }
@@ -364,5 +407,4 @@ public class Sistema {
             System.out.println("Valor Inventario: " + producto.getValorInventario());
         }
     }
-}
 }
