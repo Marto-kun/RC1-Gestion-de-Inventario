@@ -11,8 +11,8 @@ public class ProductoPerecedero extends Producto {
 
     //Constructor con argumentos para producto perecedero
     public ProductoPerecedero(String id, String marca, String nombre, int stock,
-                              double precioUnitario, double valorInventario, LocalDate fechaVencimiento) {
-        super(id, marca, nombre, stock, precioUnitario, valorInventario);
+                              double precioUnitario, LocalDate fechaVencimiento) {
+        super(id, marca, nombre, stock, precioUnitario);
         this.fechaVencimiento = fechaVencimiento;
     }
 

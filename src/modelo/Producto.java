@@ -8,7 +8,7 @@ public abstract class Producto {
     private String nombre;
     private int stock;
     private double precioUnitario;
-    private double valorInventario;
+    private double valorInventario = 0;
 
     //Constructor vacio
     public Producto() {
@@ -16,16 +16,16 @@ public abstract class Producto {
 
     //Constructor con argumentos
     public Producto(String id, String marca, String nombre, int stock,
-                    double precioUnitario, double valorInventario) {
+                    double precioUnitario) {
         this.id = id;
         this.marca = marca;
         this.nombre = nombre;
         this.stock = stock;
         this.precioUnitario = precioUnitario;
-        this.valorInventario = valorInventario;
     }
 
     //Metodo abstracto para diferentes productos del inventario
+
     /**
      * Metodo para calcular el valor en inventario de un producto específico
      *
