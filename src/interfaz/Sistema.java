@@ -24,20 +24,20 @@ public class Sistema {
         //Inicializacion del inventario
         inventario = new Inventario();
 
-        //Inicializacion del scanner
+        //Inicializacion del Scanner
         sc = new Scanner(System.in);
     }
 
     //Metodo principal del sistema
     public void ejecutarSistema() {
 
-        //Variable para controlar el menu
+        //Variable para guardar opcion del menu
         int opcion;
 
-        //Ciclo do while para repetir el menu hasta salir
+        //Ciclo principal del sistema
         do {
 
-            //Menu de opciones
+            //Menu
             System.out.println("\n===== SISTEMA DE INVENTARIO =====");
             System.out.println("1. Registrar producto perecedero");
             System.out.println("2. Registrar producto no perecedero");
@@ -45,49 +45,44 @@ public class Sistema {
             System.out.println("4. Salir");
             System.out.print("Ingrese una opcion: ");
 
-            //Validacion para que solo se ingresen numeros enteros
+            //Validacion de opcion
             while (!sc.hasNextInt()) {
 
                 System.out.println("Ingrese una opcion valida");
                 sc.next();
             }
 
-            //Lectura de opcion
+            //Guardar opcion
             opcion = sc.nextInt();
 
-            //Limpieza del buffer
+            //Limpiar buffer
             sc.nextLine();
 
-            //Switch para ejecutar opciones del menu
+            //Estructura de opciones
             switch (opcion) {
 
                 case 1:
 
-                    //Llamada al metodo para registrar perecederos
                     registrarPerecedero();
                     break;
 
                 case 2:
 
-                    //Llamada al metodo para registrar no perecederos
                     registrarNoPerecedero();
                     break;
 
                 case 3:
 
-                    //Llamada al metodo para mostrar productos
                     mostrarProductos();
                     break;
 
                 case 4:
 
-                    //Mensaje de salida
                     System.out.println("Saliendo del sistema...");
                     break;
 
                 default:
 
-                    //Mensaje si la opcion no existe
                     System.out.println("Opcion invalida");
             }
 
@@ -99,7 +94,7 @@ public class Sistema {
 
         System.out.println("\n--- PRODUCTO PERECEDERO ---");
 
-        //Ingreso de datos tipo texto
+        //Ingreso de datos
         System.out.print("ID: ");
         String id = sc.nextLine();
 
@@ -112,19 +107,20 @@ public class Sistema {
         //Variable stock
         int stock;
 
-        //Validacion del stock
+        //Validacion de stock
         while (true) {
 
             System.out.print("Stock: ");
 
-            //Verifica si el usuario ingreso un entero
             if (sc.hasNextInt()) {
 
                 stock = sc.nextInt();
 
-                //Verifica que el stock sea mayor a 0
+                //El stock debe ser mayor a 0
                 if (stock > 0) {
+
                     break;
+
                 } else {
 
                     System.out.println("El stock debe ser mayor a 0");
@@ -132,10 +128,7 @@ public class Sistema {
 
             } else {
 
-                //Mensaje si el usuario ingresa letras
                 System.out.println("Ingrese un numero valido");
-
-                //Limpia el dato incorrecto
                 sc.next();
             }
         }
@@ -143,19 +136,20 @@ public class Sistema {
         //Variable precio
         double precio;
 
-        //Validacion del precio
+        //Validacion de precio
         while (true) {
 
             System.out.print("Precio unitario: ");
 
-            //Verifica si el usuario ingreso un decimal
             if (sc.hasNextDouble()) {
 
                 precio = sc.nextDouble();
 
-                //Verifica que el precio sea mayor a 0
+                //El precio debe ser mayor a 0
                 if (precio > 0) {
+
                     break;
+
                 } else {
 
                     System.out.println("El precio debe ser mayor a 0");
@@ -163,21 +157,17 @@ public class Sistema {
 
             } else {
 
-                //Mensaje si el usuario ingresa letras
                 System.out.println("Ingrese un numero valido");
-
-                //Limpia el dato incorrecto
                 sc.next();
             }
         }
 
-        //Variable para almacenar la fecha
+        //Variable fecha
         LocalDate fecha;
 
         //Validacion de fecha
         while (true) {
 
-            //Ingreso del anio
             System.out.print("Anio de vencimiento: ");
 
             while (!sc.hasNextInt()) {
@@ -188,7 +178,13 @@ public class Sistema {
 
             int anio = sc.nextInt();
 
-            //Ingreso del mes
+            //Restriccion de años
+            if (anio < 2027) {
+
+                System.out.println("Anio invalido");
+                continue;
+            }
+
             System.out.print("Mes de vencimiento: ");
 
             while (!sc.hasNextInt()) {
@@ -199,7 +195,6 @@ public class Sistema {
 
             int mes = sc.nextInt();
 
-            //Ingreso del dia
             System.out.print("Dia de vencimiento: ");
 
             while (!sc.hasNextInt()) {
@@ -215,7 +210,7 @@ public class Sistema {
                 //Creacion de fecha
                 fecha = LocalDate.of(anio, mes, dia);
 
-                //Verifica que la fecha sea futura
+                //La fecha debe ser futura
                 if (fecha.isAfter(LocalDate.now())) {
 
                     break;
@@ -227,32 +222,25 @@ public class Sistema {
 
             } catch (Exception e) {
 
-                //Mensaje si la fecha no existe
+                //Error si la fecha no existe
                 System.out.println("Fecha invalida");
             }
         }
 
-        //Limpieza de buffer
+        //Limpiar buffer
         sc.nextLine();
 
-        //Verificacion de restricciones del inventario
+        //Verificacion de restricciones
         if (inventario.verificacionRestricciones(stock, precio)) {
 
             //Creacion del producto perecedero
             ProductoPerecedero producto =
-                    new ProductoPerecedero(
-                            id,
-                            marca,
-                            nombre,
-                            stock,
-                            precio,
-                            fecha
-                    );
+                    new ProductoPerecedero(id, marca, nombre,
+                            stock, precio, fecha);
 
-            //Registro del producto en inventario
+            //Registro del producto
             inventario.registrarProducto(producto);
 
-            //Mensaje de confirmacion
             System.out.println("Producto perecedero registrado");
         }
     }
@@ -262,7 +250,7 @@ public class Sistema {
 
         System.out.println("\n--- PRODUCTO NO PERECEDERO ---");
 
-        //Ingreso de datos tipo texto
+        //Ingreso de datos
         System.out.print("ID: ");
         String id = sc.nextLine();
 
@@ -275,7 +263,7 @@ public class Sistema {
         //Variable stock
         int stock;
 
-        //Validacion del stock
+        //Validacion de stock
         while (true) {
 
             System.out.print("Stock: ");
@@ -284,7 +272,6 @@ public class Sistema {
 
                 stock = sc.nextInt();
 
-                //Verifica que el stock sea positivo
                 if (stock > 0) {
 
                     break;
@@ -304,7 +291,7 @@ public class Sistema {
         //Variable precio
         double precio;
 
-        //Validacion del precio
+        //Validacion de precio
         while (true) {
 
             System.out.print("Precio unitario: ");
@@ -313,7 +300,6 @@ public class Sistema {
 
                 precio = sc.nextDouble();
 
-                //Verifica que el precio sea positivo
                 if (precio > 0) {
 
                     break;
@@ -330,10 +316,10 @@ public class Sistema {
             }
         }
 
-        //Limpieza del buffer
+        //Limpiar buffer
         sc.nextLine();
 
-        //Ingreso del material
+        //Ingreso de material
         System.out.print("Material: ");
         String material = sc.nextLine();
 
@@ -342,41 +328,34 @@ public class Sistema {
 
             //Creacion del producto no perecedero
             ProductoNoPerecedero producto =
-                    new ProductoNoPerecedero(
-                            id,
-                            marca,
-                            nombre,
-                            stock,
-                            precio,
-                            material
-                    );
+                    new ProductoNoPerecedero(id, marca, nombre,
+                            stock, precio, material);
 
             //Registro del producto
             inventario.registrarProducto(producto);
 
-            //Mensaje de confirmacion
             System.out.println("Producto no perecedero registrado");
         }
     }
 
-    //Metodo para mostrar productos registrados
+    //Metodo para mostrar productos
     public void mostrarProductos() {
 
         System.out.println("\n===== LISTA DE PRODUCTOS =====");
 
-        //Verifica si la lista esta vacia
+        //Verifica si no hay productos
         if (inventario.getListaProductos().isEmpty()) {
 
             System.out.println("No existen productos registrados");
             return;
         }
 
-        //Recorrido de la lista de productos
+        //Recorrer lista de productos
         for (Producto producto : inventario.getListaProductos()) {
 
             System.out.println("---------------------------");
 
-            //Muestra datos del producto
+            //Mostrar informacion
             System.out.println("ID: " + producto.getId());
             System.out.println("Nombre: " + producto.getNombre());
             System.out.println("Marca: " + producto.getMarca());
@@ -385,4 +364,5 @@ public class Sistema {
             System.out.println("Valor Inventario: " + producto.getValorInventario());
         }
     }
+}
 }
